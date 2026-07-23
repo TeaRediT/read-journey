@@ -11,4 +11,12 @@
 
   --color-blue: #4f92f7;
   --color-green: #30b94d;
+
+  --breakpoint-xs: 375px;
+  --breakpoint-md: 768px;
+  --breakpoint-ds: 1440px;
+
+  --width-container-xs: 375px;
+  --width-container-md: 768px;
+  --width-container-ds: 1440px;
 }
