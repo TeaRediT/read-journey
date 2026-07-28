@@ -14,7 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${gilroy.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col text-primary bg-background">
+      <body className="min-h-full flex flex-col text-primary bg-background font-medium text-[14px] leading-[1.29] tracking-[0.02em]">
         {children}
       </body>
     </html>

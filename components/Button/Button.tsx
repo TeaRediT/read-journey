@@ -2,8 +2,8 @@ interface ButtonProps {
   type: "submit" | "button";
   children: React.ReactNode;
   color: "white" | "black";
-  width: number;
   disabled?: boolean;
+  className?: string;
   onClick?: () => void;
 }
 
@@ -11,12 +11,12 @@ const Button = ({
   type,
   children,
   color,
-  width,
   disabled,
+  className = "",
   onClick,
 }: ButtonProps) => {
   const baseStyles =
-    "flex justify-center items-center rounded-[30px] font-bold transition-all duration-250 cursor-pointer outline-none disabled:cursor-default disabled:opacity-50 enabled:active:scale-[0.98]";
+    "flex justify-center items-center rounded-[30px] font-bold transition-all duration-250 cursor-pointer outline-none disabled:cursor-default disabled:opacity-50 enabled:active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary";
 
   const colorStyles =
     color === "white"
@@ -30,9 +30,8 @@ const Button = ({
 
   return (
     <button
-      className={`${baseStyles} ${colorStyles} ${sizeStyles}`}
+      className={`${baseStyles} ${colorStyles} ${sizeStyles} ${className}`}
       type={type}
-      style={{ width: `${width}px` }}
       disabled={disabled}
       onClick={onClick}
     >
