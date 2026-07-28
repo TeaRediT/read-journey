@@ -20,8 +20,8 @@ const Button = ({
 
   const colorStyles =
     color === "white"
-      ? "bg-primary text-surface enabled:hover:brightness-90"
-      : "bg-transparent text-primary border border-solid border-[rgba(104,104,104,0.2)] enabled:hover:bg-primary/5 focus-visible:bg-primary/10";
+      ? "bg-primary text-surface border border-transparent enabled:[&:hover,&:focus-visible]:bg-transparent enabled:[&:hover,&:focus-visible]:text-primary enabled:[&:hover,&:focus-visible]:border-[rgba(104,104,104,0.2)]"
+      : "bg-transparent text-primary border border-solid border-[rgba(104,104,104,0.2)] enabled:[&:hover,&:focus-visible]:bg-primary enabled:[&:hover,&:focus-visible]:text-surface enabled:[&:hover,&:focus-visible]:border-transparent";
 
   const sizeStyles =
     color === "white"
