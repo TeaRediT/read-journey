@@ -39,3 +39,7 @@ export const loginUser = async (creds: LoginCreds): Promise<AuthRes> => {
   const { data } = await api.post<AuthRes>("/users/signin", creds);
   return data;
 };
+
+export const logout = async () => {
+  await api.post("/users/signout");
+};
