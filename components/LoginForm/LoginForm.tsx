@@ -36,10 +36,9 @@ const LoginForm = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid, dirtyFields },
+    formState: { errors, isSubmitted },
   } = useForm<LoginFormData>({
     resolver: yupResolver(loginSchema),
-    mode: "onChange",
   });
 
   const onSubmit = (data: LoginFormData) => {
@@ -47,10 +46,10 @@ const LoginForm = () => {
   };
 
   const isEmailError = !!errors.email;
-  const isEmailSuccess = dirtyFields.email && !errors.email;
+  const isEmailSuccess = isSubmitted && !errors.email;
 
   const isPasswordError = !!errors.password;
-  const isPasswordSuccess = dirtyFields.password && !errors.password;
+  const isPasswordSuccess = isSubmitted && !errors.password;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="md:w-118">
@@ -107,25 +106,41 @@ const LoginForm = () => {
               className={clsx(inputStyles, "pr-6")}
             />
 
-            <button
-              type="button"
-              onClick={() => setShowPassword((prev) => !prev)}
-              className={clsx(
-                "absolute right-3.5 top-1/2 -translate-y-1/2 flex items-center justify-center transition-colors duration-250",
-                isPasswordError
-                  ? "text-[#e90516]"
-                  : isPasswordSuccess
-                    ? "text-green"
-                    : "text-primary hover:text-[rgba(249,249,249,0.5)]",
-              )}
-              aria-label={showPassword ? "Hide password" : "Show password"}
-            >
-              <svg width={20} height={20} stroke="currentColor" fill="none">
-                <use
-                  href={`/sprite.svg#${showPassword ? "icon-eye" : "icon-eye-off"}`}
-                ></use>
-              </svg>
-            </button>
+            {!isSubmitted ? (
+              <button
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 flex items-center justify-center transition-colors duration-250 text-primary hover:text-[rgba(249,249,249,0.5)]"
+                aria-label={showPassword ? "Hide password" : "Show password"}
+              >
+                <svg width={20} height={20} stroke="currentColor" fill="none">
+                  <use
+                    href={`/sprite.svg#${showPassword ? "icon-eye" : "icon-eye-off"}`}
+                  ></use>
+                </svg>
+              </button>
+            ) : (
+              <>
+                {isPasswordError && (
+                  <svg
+                    width={20}
+                    height={20}
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2"
+                  >
+                    <use href="/sprite.svg#icon-error"></use>
+                  </svg>
+                )}
+                {isPasswordSuccess && (
+                  <svg
+                    width={20}
+                    height={20}
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2"
+                  >
+                    <use href="/sprite.svg#icon-success"></use>
+                  </svg>
+                )}
+              </>
+            )}
           </div>
           {isPasswordError && (
             <p className={errorStyles}>{errors.password?.message}</p>
@@ -137,12 +152,7 @@ const LoginForm = () => {
       </div>
 
       <div className="flex items-center justify-between mt-18 md:mt-36.5 md:justify-normal">
-        <Button
-          type="submit"
-          color="white"
-          className="w-35 md:w-56.25 md:mr-5"
-          disabled={!isValid}
-        >
+        <Button type="submit" color="white" className="w-35 md:w-56.25 md:mr-5">
           Log in
         </Button>
         <Link
