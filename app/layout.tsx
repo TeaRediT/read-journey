@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { gilroy } from "@/lib/fonts";
+import AuthProvider from "@/components/AuthProvider/AuthProvider";
+import { ReduxProvider } from "@/redux/ReduxProvider";
+import { Toaster } from "react-hot-toast";
+import TanStackProvider from "@/components/TanStackProvider/TanStackProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -15,7 +19,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${gilroy.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col text-primary bg-background font-medium text-[14px] leading-[1.29] tracking-[0.02em]">
-        {children}
+        <ReduxProvider>
+          <TanStackProvider>
+            <AuthProvider>{children}</AuthProvider>
+          </TanStackProvider>
+        </ReduxProvider>
+        <Toaster position="top-right" />
       </body>
     </html>
   );
