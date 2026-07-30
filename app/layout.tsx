@@ -17,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${gilroy.variable} h-full antialiased`}>
+    <html lang="en" className={`${gilroy.className} h-full antialiased`}>
       <body className="min-h-full flex flex-col text-primary bg-background font-medium text-[14px] leading-[1.29] tracking-[0.02em]">
         <ReduxProvider>
           <TanStackProvider>
