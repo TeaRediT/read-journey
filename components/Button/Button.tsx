@@ -1,3 +1,5 @@
+import { twMerge } from "tailwind-merge";
+
 interface ButtonProps {
   type: "submit" | "button";
   children: React.ReactNode;
@@ -21,7 +23,7 @@ const Button = ({
   const colorStyles =
     color === "white"
       ? "bg-primary text-surface border border-transparent enabled:[&:hover,&:focus-visible]:bg-transparent enabled:[&:hover,&:focus-visible]:text-primary enabled:[&:hover,&:focus-visible]:border-[rgba(104,104,104,0.2)]"
-      : "bg-transparent text-primary border border-solid border-[rgba(104,104,104,0.2)] enabled:[&:hover,&:focus-visible]:bg-primary enabled:[&:hover,&:focus-visible]:text-surface enabled:[&:hover,&:focus-visible]:border-transparent";
+      : "bg-transparent text-primary border border-solid border-[rgba(249,249,249,0.2)] enabled:[&:hover,&:focus-visible]:bg-primary enabled:[&:hover,&:focus-visible]:text-surface enabled:[&:hover,&:focus-visible]:border-transparent";
 
   const sizeStyles =
     color === "white"
@@ -30,7 +32,7 @@ const Button = ({
 
   return (
     <button
-      className={`${baseStyles} ${colorStyles} ${sizeStyles} ${className}`}
+      className={twMerge(baseStyles, colorStyles, sizeStyles, className)}
       type={type}
       disabled={disabled}
       onClick={onClick}
