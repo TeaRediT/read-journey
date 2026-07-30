@@ -7,6 +7,13 @@ import Link from "next/link";
 import Button from "../Button/Button";
 import { useState } from "react";
 import { LoginFormData, loginSchema } from "./LoginFormSchema";
+import { useMutation } from "@tanstack/react-query";
+import { loginUser, setAuthHeader } from "@/lib/api";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "@/redux/auth/authSlice";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { isAxiosError } from "axios";
 
 const divStyles =
   "flex items-center bg-surface-light rounded-xl px-3.5 py-3.5 md:px-3.5 md:py-4";
@@ -33,6 +40,8 @@ const getWrapperStyles = (isError?: boolean, isSuccess?: boolean) => {
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const dispatch = useDispatch();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -41,8 +50,39 @@ const LoginForm = () => {
     resolver: yupResolver(loginSchema),
   });
 
+  const loginMutation = useMutation({
+    mutationFn: async (creds: LoginFormData) => loginUser(creds),
+    onSuccess: (data) => {
+      const { name, email, token, refreshToken } = data;
+
+      localStorage.setItem("token", token);
+      localStorage.setItem("refreshToken", refreshToken);
+      setAuthHeader(token);
+
+      dispatch(
+        setCredentials({
+          user: { name, email },
+          token,
+          refreshToken,
+        }),
+      );
+
+      toast.success("Welcome back!");
+      router.push("/recommended");
+    },
+    onError: (error) => {
+      if (isAxiosError(error)) {
+        const errorMessage =
+          error.response?.data?.message || "Something went wrong.";
+        toast.error(errorMessage);
+      } else {
+        toast.error((error as Error).message);
+      }
+    },
+  });
+
   const onSubmit = (data: LoginFormData) => {
-    console.log("data:", data);
+    loginMutation.mutate(data);
   };
 
   const isEmailError = !!errors.email;
