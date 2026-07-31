@@ -1,21 +1,19 @@
 import axios from "axios";
+import {
+  AuthRes,
+  BooksRes,
+  LoginCreds,
+  RegCreds,
+  TokensRes,
+  User,
+} from "./types";
 
-interface RegCreds {
-  name: string;
-  email: string;
-  password: string;
-}
-
-interface LoginCreds {
-  email: string;
-  password: string;
-}
-
-interface AuthRes {
-  email: string;
-  name: string;
-  token: string;
-  refreshToken: string;
+interface BooksFilters {
+  title?: string;
+  author?: string;
+  token?: string;
+  limit: number;
+  page: number;
 }
 
 export const api = axios.create({
@@ -42,4 +40,38 @@ export const loginUser = async (creds: LoginCreds): Promise<AuthRes> => {
 
 export const logout = async () => {
   await api.post("/users/signout");
+};
+
+export const refreshTokens = async (): Promise<TokensRes> => {
+  const { data } = await api.get<TokensRes>("/users/current/refresh");
+  return data;
+};
+
+export const getUser = async (): Promise<User> => {
+  const { data } = await api.get<User>("/users/current");
+  return data;
+};
+
+export const fetchBooks = async ({
+  title,
+  author,
+  page,
+  limit,
+  token,
+}: BooksFilters): Promise<BooksRes> => {
+  const params = new URLSearchParams();
+
+  params.append("page", page.toString());
+  params.append("limit", limit.toString());
+
+  if (title) params.append("title", title);
+  if (author) params.append("author", author);
+
+  const { data } = await api.get<BooksRes>("/books/recommend", {
+    params,
+    ...(token && {
+      Authorization: `Bearer ${token}`,
+    }),
+  });
+  return data;
 };
