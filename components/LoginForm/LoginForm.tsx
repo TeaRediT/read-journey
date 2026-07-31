@@ -68,7 +68,7 @@ const LoginForm = () => {
       );
 
       document.cookie =
-        "auth-session=true; path=/; max-age=2592000; SameSite=Strict";
+        "auth-session=true; path=/; max-age=604800; SameSite=Strict";
 
       toast.success("Welcome back!");
       router.push("/recommended");
