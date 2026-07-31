@@ -68,7 +68,7 @@ const RegisterForm = () => {
       );
 
       document.cookie =
-        "auth-session=true; path=/; max-age=2592000; SameSite=Strict";
+        "auth-session=true; path=/; max-age=604800; SameSite=Strict";
 
       toast.success("Registration successful!");
       router.push("/recommended");
