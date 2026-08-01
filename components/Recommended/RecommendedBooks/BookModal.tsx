@@ -7,6 +7,7 @@ import { Book } from "@/lib/types";
 import Button from "@/components/Button/Button";
 import { useMutation } from "@tanstack/react-query";
 import { addBookToGallery } from "@/lib/api";
+import ModalNotification from "@/components/ModalNotification/ModalNotification";
 
 interface BookModalProps {
   book: Book | null;
@@ -113,29 +114,10 @@ export const BookModal = ({ book, isOpen, onClose }: BookModalProps) => {
           </div>
         )}
         {(bookAdded || isError) && (
-          <div className="flex flex-col items-center">
-            <p className="text-[50px] leading-none mb-5 md:text-[68px] md:leading-[1.03] md:mb-8">
-              {bookAdded && "👍"}
-              {isError && "❌"}
-            </p>
-            <h2 className="text-[18px] leading-none font-bold mb-2.5 md:text-[20px] md:mb-3.5">
-              {bookAdded && "Good job"}
-              {isError && "Oops! Error"}
-            </h2>
-            {bookAdded && (
-              <p className="text-secondary text-center w-63.75">
-                Your book is now in{" "}
-                <span className="text-primary">the library!</span> The joy knows
-                no bounds and now you can start your training
-              </p>
-            )}
-            {isError && (
-              <p className="text-secondary text-center w-63.75">
-                Something went wrong while adding the book to your library.
-                Please try again later.
-              </p>
-            )}
-          </div>
+          <ModalNotification
+            success={bookAdded}
+            error={isError}
+          ></ModalNotification>
         )}
       </div>
     </>
