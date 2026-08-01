@@ -45,7 +45,10 @@ export const MobileMenu = ({
           isOpen ? "translate-x-0" : "translate-x-full",
         )}
       >
-        <button onClick={onClose} className="z-1 self-end cursor-pointer">
+        <button
+          onClick={onClose}
+          className="z-1 self-end cursor-pointer transition-colors duration-250 hover:text-secondary"
+        >
           <svg width={28} height={28} stroke="currentColor">
             <use href="/sprite.svg#icon-close"></use>
           </svg>
