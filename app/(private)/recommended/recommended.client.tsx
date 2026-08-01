@@ -14,7 +14,7 @@ const RecommendedClient = () => {
   const [title, setTitle] = useState<string>("");
 
   return (
-    <>
+    <div className="ds:flex ds:justify-between ds:mb-6.75 ds:mt-4">
       <Dashboard>
         <Filters setAuthor={setAuthor} setTitle={setTitle} setPage={setPage} />
         <WorkoutInfo />
@@ -28,7 +28,7 @@ const RecommendedClient = () => {
         title={title}
         author={author}
       />
-    </>
+    </div>
   );
 };
 
