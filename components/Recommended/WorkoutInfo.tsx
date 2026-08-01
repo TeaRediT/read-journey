@@ -18,7 +18,7 @@ export const WorkoutInfo = () => {
         Start your workout
       </h2>
 
-      <ul className="flex flex-col gap-5 md:mb-6.5">
+      <ul className="flex flex-col gap-5 md:mb-5">
         {steps.map((step, idx) => {
           return (
             <li key={step.label.slice(0, 3) + idx} className="flex gap-3">
