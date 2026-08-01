@@ -14,9 +14,9 @@
 
   --breakpoint-xs: 375px;
   --breakpoint-md: 768px;
-  --breakpoint-ds: 1440px;
+  --breakpoint-ds: 1280px;
 
   --width-container-xs: 375px;
   --width-container-md: 768px;
-  --width-container-ds: 1440px;
+  --width-container-ds: 1280px;
 }

@@ -15,7 +15,7 @@ const Container = ({ children, className = "" }: ContainerProps) => {
         "px-5",
         "min-w-[320px] max-w-93.75",
         "md:max-w-3xl md:px-8",
-        "ds:max-w-360",
+        "ds:max-w-7xl",
         className,
       )}
     >
