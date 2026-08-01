@@ -1,6 +1,7 @@
 import axios from "axios";
 import {
   AuthRes,
+  Book,
   BooksRes,
   LoginCreds,
   RegCreds,
@@ -73,5 +74,15 @@ export const fetchBooks = async ({
       Authorization: `Bearer ${token}`,
     }),
   });
+  return data;
+};
+
+export const addBookToGallery = async (id: string): Promise<Book> => {
+  const { data } = await api.post<Book>(`/books/add/${id}`);
+  return data;
+};
+
+export const getUsersBooks = async (): Promise<Book[]> => {
+  const { data } = await api.get<Book[]>("/books/own");
   return data;
 };
