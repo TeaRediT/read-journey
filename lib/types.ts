@@ -43,3 +43,9 @@ export interface BooksRes {
   totalPages: number;
   page: number;
 }
+
+export interface AddBook {
+  title: string;
+  author: string;
+  totalPages: string;
+}
