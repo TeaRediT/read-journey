@@ -12,7 +12,7 @@ const ModalNotification = ({ success, error }: ModalNotificationProps) => {
       </p>
       <h2 className="text-[18px] leading-none font-bold mb-2.5 md:text-[20px] md:mb-3.5">
         {success && "Good job"}
-        {error && "Oops! Error"}
+        {error && "Oops!"}
       </h2>
       {success && (
         <p className="text-secondary text-center w-63.75">
@@ -22,8 +22,7 @@ const ModalNotification = ({ success, error }: ModalNotificationProps) => {
       )}
       {error && (
         <p className="text-secondary text-center w-63.75">
-          Something went wrong while adding the book to your library. Please try
-          again later.
+          The book has already been added, or something went wrong.
         </p>
       )}
     </div>
