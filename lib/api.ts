@@ -1,5 +1,6 @@
 import axios from "axios";
 import {
+  AddBook,
   AuthRes,
   Book,
   BooksRes,
@@ -28,6 +29,25 @@ export const setAuthHeader = (token: string) => {
 export const clearAuthHeader = () => {
   api.defaults.headers.common.Authorization = "";
 };
+
+api.interceptors.response.use(
+  (response) => response,
+
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("refreshToken");
+
+      document.cookie = "auth-session=; path=/; max-age=0";
+
+      if (typeof window !== "undefined") {
+        window.location.href = "/login";
+      }
+    }
+
+    return Promise.reject(error);
+  },
+);
 
 export const registerUser = async (creds: RegCreds): Promise<AuthRes> => {
   const { data } = await api.post<AuthRes>("/users/signup", creds);
@@ -84,5 +104,10 @@ export const addBookToGallery = async (id: string): Promise<Book> => {
 
 export const getUsersBooks = async (): Promise<Book[]> => {
   const { data } = await api.get<Book[]>("/books/own");
+  return data;
+};
+
+export const addNewBook = async (body: AddBook): Promise<Book> => {
+  const { data } = await api.post<Book>("/books/add", body);
   return data;
 };
