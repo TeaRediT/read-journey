@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
-import { BookModal } from "./BookModal";
+import BookModal from "./BookModal";
 import { fetchBooks } from "@/lib/api";
 import { Book } from "@/lib/types";
 import Button from "@/components/Button/Button";
@@ -32,7 +32,7 @@ const RecommendedBooks = ({
     const handleResize = () => {
       const width = window.innerWidth;
 
-      if (width >= 1440) {
+      if (width >= 1280) {
         setLimit(10);
       } else if (width >= 768) {
         setLimit(8);
