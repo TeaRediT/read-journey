@@ -15,7 +15,7 @@ interface BookModalProps {
   onClose: () => void;
 }
 
-export const BookModal = ({ book, isOpen, onClose }: BookModalProps) => {
+const BookModal = ({ book, isOpen, onClose }: BookModalProps) => {
   const [currentBook, setCurrentBook] = useState<Book | null>(book);
   const [bookAdded, setBookAdded] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
@@ -123,3 +123,5 @@ export const BookModal = ({ book, isOpen, onClose }: BookModalProps) => {
     </>
   );
 };
+
+export default BookModal;
