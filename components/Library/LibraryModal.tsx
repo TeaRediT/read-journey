@@ -4,7 +4,6 @@ import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import clsx from "clsx";
 import { Book } from "@/lib/types";
-import Button from "@/components/Button/Button";
 import ModalNotification from "@/components/ModalNotification/ModalNotification";
 import Link from "next/link";
 
