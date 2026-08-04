@@ -49,3 +49,10 @@ export interface AddBook {
   author: string;
   totalPages: string;
 }
+
+export interface deleteRes {
+  message: string;
+  id: string;
+}
+
+export type Status = "all" | "unread" | "in-progress" | "done";
