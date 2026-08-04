@@ -111,7 +111,10 @@ const RecommendedBooks = ({
       ) : (
         <ul className="flex justify-between md:justify-normal md:gap-x-6.25 md:gap-y-6.75 md:flex-wrap ds:gap-x-5">
           {data?.results.map((book) => (
-            <li key={book._id} className="flex flex-col w-34.25 h-62">
+            <li
+              key={book._id}
+              className="flex flex-col h-62 w-[calc(50%-8px)] max-w-34.25"
+            >
               <div
                 onClick={() => setSelectedBook(book)}
                 className="group relative w-full h-52 cursor-pointer overflow-hidden rounded-lg mb-2"
