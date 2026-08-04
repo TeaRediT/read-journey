@@ -6,7 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useMutation } from "@tanstack/react-query";
 import Button from "@/components/Button/Button";
 import { createPortal } from "react-dom";
-import LibraryModal from "../LibraryModal";
+import AddBookModal from "../AddBookModal";
 import { AddBook as AddBookType } from "@/lib/types";
 import { addNewBook } from "@/lib/api";
 import { AddBookFormData, addBookSchema } from "./AddBookSchema";
@@ -129,7 +129,7 @@ export const AddBook = () => {
         </Button>
       </form>
       {createPortal(
-        <LibraryModal
+        <AddBookModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           isError={mutation.isError}
