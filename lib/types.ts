@@ -36,6 +36,13 @@ export interface Book {
   imageUrl: string;
   recommend: boolean;
   totalPages: number;
+  status: "unread" | "in-progress" | "done";
+  progress: ReadingProgress[];
+  timeLeftToRead?: {
+    hours: number;
+    minutes: number;
+    seconds: number;
+  };
 }
 
 export interface BooksRes {
@@ -56,3 +63,13 @@ export interface deleteRes {
 }
 
 export type Status = "all" | "unread" | "in-progress" | "done";
+
+export interface ReadingProgress {
+  _id: string;
+  startPage: number;
+  startReading: string;
+  finishPage?: number;
+  finishReading?: string;
+  speed?: number;
+  status: "active" | "inactive";
+}
