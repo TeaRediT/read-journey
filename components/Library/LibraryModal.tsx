@@ -74,7 +74,7 @@ const LibraryModal = ({ book, isOpen, onClose }: LibraryModalProps) => {
           <div className="flex flex-col items-center">
             <div className="relative mb-4 w-35 h-53.25 overflow-hidden rounded-lg md:w-38.25 md:h-58.25">
               <Image
-                src={currentBook.imageUrl}
+                src={currentBook.imageUrl ?? "/book.jpg"}
                 alt={currentBook.title}
                 fill
                 sizes="(max-width: 767px) 140px, 153px"
@@ -92,6 +92,7 @@ const LibraryModal = ({ book, isOpen, onClose }: LibraryModalProps) => {
             </p>
 
             <Link
+              onClick={handleClose}
               className="flex justify-center items-center rounded-[30px] font-bold transition-all duration-250 cursor-pointer outline-none active:scale-[0.98] focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary bg-transparent text-primary border border-solid border-[rgba(249,249,249,0.2)] hover:bg-primary hover:text-surface hover:border-transparent focus-visible:bg-primary focus-visible:text-surface focus-visible:border-transparent h-10.5 md:h-11.5 md:leading-[1.13] md:text-[16px] w-35.25 md:w-39.75"
               href={`/reading/${book?._id}`}
             >
