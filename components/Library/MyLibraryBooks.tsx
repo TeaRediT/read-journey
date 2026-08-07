@@ -106,7 +106,6 @@ const selectStyles: StylesConfig<StatusOption, false> = {
 export const MyLibraryBooks = () => {
   const [status, setStatus] = useState<Status>("all");
   const [selectedBook, setSelectedBook] = useState<Book | null>(null);
-
   const queryClient = useQueryClient();
 
   const {
