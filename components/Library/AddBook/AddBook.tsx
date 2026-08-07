@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Button from "@/components/Button/Button";
 import { createPortal } from "react-dom";
 import AddBookModal from "../AddBookModal";
@@ -20,6 +20,7 @@ const errorStyles = "text-[#e90516] text-[8px] absolute bottom-[-8.5px]";
 
 export const AddBook = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const queryClient = useQueryClient();
   const {
     register,
     handleSubmit,
@@ -37,6 +38,7 @@ export const AddBook = () => {
   const mutation = useMutation({
     mutationFn: (book: AddBookType) => addNewBook(book),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["my-library-books"] });
       reset();
     },
     onSettled: () => {
