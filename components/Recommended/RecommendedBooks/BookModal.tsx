@@ -5,7 +5,7 @@ import Image from "next/image";
 import clsx from "clsx";
 import { Book } from "@/lib/types";
 import Button from "@/components/Button/Button";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addBookToGallery } from "@/lib/api";
 import ModalNotification from "@/components/ModalNotification/ModalNotification";
 
@@ -19,6 +19,7 @@ const BookModal = ({ book, isOpen, onClose }: BookModalProps) => {
   const [currentBook, setCurrentBook] = useState<Book | null>(book);
   const [bookAdded, setBookAdded] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
+  const queryClient = useQueryClient();
 
   if (book && book !== currentBook) setCurrentBook(book);
 
@@ -46,7 +47,10 @@ const BookModal = ({ book, isOpen, onClose }: BookModalProps) => {
 
   const addBookMutation = useMutation({
     mutationFn: async (id: string) => addBookToGallery(id),
-    onSuccess: () => setBookAdded(true),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["my-library-books"] });
+      setBookAdded(true);
+    },
     onError: () => setIsError(true),
   });
 
