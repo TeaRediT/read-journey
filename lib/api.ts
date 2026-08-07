@@ -196,3 +196,40 @@ export const deleteBookFromGallery = async (id: string): Promise<deleteRes> => {
   const { data } = await api.delete<deleteRes>(`/books/remove/${id}`);
   return data;
 };
+
+export const getBook = async (id: string): Promise<Book> => {
+  const { data } = await api.get<Book>(`/books/${id}`);
+  return data;
+};
+
+export const startReading = async ({
+  id,
+  page,
+}: {
+  id: string;
+  page: number;
+}): Promise<Book> => {
+  const { data } = await api.post<Book>("/books/reading/start", { id, page });
+  return data;
+};
+
+export const finishReading = async ({
+  id,
+  page,
+}: {
+  id: string;
+  page: number;
+}): Promise<Book> => {
+  const { data } = await api.post<Book>("/books/reading/finish", { id, page });
+  return data;
+};
+
+export const deleteReadingSession = async (
+  bookId: string,
+  readingId: string,
+): Promise<Book> => {
+  const { data } = await api.delete<Book>(
+    `/books/reading?bookId=${bookId}&readingId=${readingId}`,
+  );
+  return data;
+};
